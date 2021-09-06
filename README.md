@@ -1,2 +1,2 @@
 # govueloader
-A Vue.js SFC component loader for Golang. Does not require Node.js.
+A Vue.js SFC loader for Golang. Does not require Node.js.
