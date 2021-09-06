@@ -52,28 +52,9 @@ const defaultLayout = `
 </html>
 `
 
-/*
-New creates a VueLoader instance which will parse your layout filename.
-If the layout does not exists, a default one will be used which will fetch Vue.js from jsdelivr CDN.
-*/
-func New(layoutFilename string, componentPath string) (*VueLoader, error) {
-	index, err := template.ParseFiles(layoutFilename)
-	if err != nil {
-		log.Printf("Error loading layout '%s', using built-in template.", layoutFilename)
-		index, err = template.New("index.html").Parse(defaultLayout)
-		if err != nil {
-			log.Fatal(err)
-		}
-	}
-	return &VueLoader{
-		layoutTemplate: index,
-		componentPath:  componentPath,
-	}, nil
-}
-
 func (loader *VueLoader) loadComponents() []VueComponent {
 	var result []VueComponent
-	filepath.WalkDir("./views", func(path string, info fs.DirEntry, err error) error {
+	filepath.WalkDir(loader.componentPath, func(path string, info fs.DirEntry, err error) error {
 		if err != nil {
 			return err
 		}
@@ -100,4 +81,23 @@ func (loader *VueLoader) LoadVuePage(w io.Writer, pageTitle string, rootComponen
 		RootElement: template.HTML(rootComponent),
 		Components:  loader.compiledComponents,
 	})
+}
+
+/*
+New creates a VueLoader instance which will parse your layout file.
+If the layout does not exists, a default one will be used which will fetch Vue.js from jsdelivr CDN.
+*/
+func New(layoutFilename string, componentPath string) (*VueLoader, error) {
+	index, err := template.ParseFiles(layoutFilename)
+	if err != nil {
+		log.Printf("Error loading layout '%s', using built-in template.", layoutFilename)
+		index, err = template.New("index.html").Parse(defaultLayout)
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
+	return &VueLoader{
+		layoutTemplate: index,
+		componentPath:  componentPath,
+	}, nil
 }

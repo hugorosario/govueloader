@@ -1,3 +1,3 @@
-module github.com/hugorosario/govueloader
+module github.com/hugorosario/govueloader/vueloader
 
 go 1.17
