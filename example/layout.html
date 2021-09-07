@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{{.Title}}</title>
-        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>  
-        {{.Components}}            
-    </head>
-    <body>
-        <main id="main-vue" v-cloak>
-            {{.RootElement}}
-        </main>
-        <script>
-            new Vue({el: "#main-vue"});
-        </script>
-    </body>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{.Title}}</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    {{.Styles}}
+  </head>
+  <body>
+    {{.Templates}}
+    <main id="main" v-cloak>
+      {{.RootElement}}
+    </main>
+    {{.Scripts}}
+    <script>
+      new Vue({
+        el: "#main",
+        vuetify: new Vuetify(),        
+      });
+    </script>
+  </body>
 </html>
